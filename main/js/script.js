@@ -17,13 +17,14 @@ const questions = [
   },
   {
     type: 'input',
-    message: 'Tell me about yourself',
-    name: 'bio',
+    message: 'Please type your project description: ',
+    name: 'description',
   },
   {
-    type:'input',
-    message:'What is your linkedin URL',
-    name: 'linkedin'
+    type:'checkbox',
+    message:'please enter some sections for your readme: ',
+    name: 'sections',
+    choices: [,"Tech Stack", "Features", "Table of contents", "Installation", "Usage","Future improvements","How to contribute","liscense"]
   },
   {
     type:'input',
@@ -38,12 +39,14 @@ function doThings(){
   .prompt(questions).then(response => {
     let newFileName = `${response.title.toLowerCase().split(' ').join('')}`;
     console.log(response);
+    console.log("response.sections:   ",response.sections);
+
     createfile(newFileName, response);
   })};
   function createfile(newFileName, R){
     FileSystem.appendFile(`./createdReadMes/${newFileName}.md`,`# ${R.projName}
 
-## ${R.bio}
+## ${R.description}
 
 ## ${R.linkedin}
 
@@ -56,3 +59,6 @@ function doThings(){
   }
 
 doThings();
+
+
+
