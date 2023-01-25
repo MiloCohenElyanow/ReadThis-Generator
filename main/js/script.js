@@ -32,28 +32,36 @@ const questions = [
     name:'github'
   }
 ]
-
+const 
 
 function doThings(){
   inquirer
   .prompt(questions).then(response => {
     let newFileName = `${response.title.toLowerCase().split(' ').join('')}`;
-    console.log(response);
-    console.log("response.sections:   ",response.sections);
+    var arrOfSectionsContent = [];
 
-    createfile(newFileName, response);
+    response.sections.forEach(element => {
+      arrOfSectionsContent.push(`## ${element} \n`)
+    });
+    
+    createfile(newFileName, response, arrOfSectionsContent);
   })};
-  function createfile(newFileName, R){
-    FileSystem.appendFile(`./createdReadMes/${newFileName}.md`,`# ${R.projName}
+
+    // function(re-callable), takes filename and R as response from inquirer, and puts new readme into the createdReadMes folder
+  function createfile(newFileName, R, SectionsContent){
+    FileSystem.appendFile(`./createdReadMes/${newFileName}.md`,`
+# ${R.projName}
 
 ## ${R.description}
 
 ## ${R.linkedin}
 
 ## ${R.github}
+
+${SectionsContent.toString().split(",").join("")}
     `, 
       function (err) {
-      if (err) throw err;
+      if (err) console.log(err);
       console.log('Saved!');})
     
   }
