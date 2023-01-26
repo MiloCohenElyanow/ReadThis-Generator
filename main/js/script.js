@@ -71,33 +71,33 @@ const questions = [
         const newFileName = `${R.title.toLowerCase().split(' ').join('')}.md`;
       
     FileSystem.appendFile(`./createdReadMes/${newFileName}`,`
-#${R.projName}
+#${R.projName}\n
 
-##Description
+##Description\n
 -${R.description}
 
-##Why?
+##Why?\n
 -${R.entry_why}
 
-##TechStack
+##TechStack\n
 -${R.techstack}
 
-##Usage
+##Usage\n
 -${R.usage}
 
-##Installation
+##Installation\n
 -${R.installation}
 
-##Contribute
+##Contribute\n
 -${R.contribution}
 
-##Future Improvements
+##Future Improvements\n
 -${R.futureImprovements}
 
-##Badges
+##Badges\n
 -${R.badges}
 
-##Liscence
+##Liscence\n
 -${R.liscensing}
 
  
