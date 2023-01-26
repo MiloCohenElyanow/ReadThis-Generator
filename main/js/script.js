@@ -6,12 +6,12 @@ const inquirer = require("inquirer");
 const questions = [
   {
     type: 'input',
-    message: 'please add a tittle for your readme: ',
+    message: 'input what your file name will be, .md will automaticaly be added to the end: ',
     name: 'title',
   },
   {
     type: 'input',
-    message: 'enter your project name: ',
+    message: 'enter your project name, this will be the main header: ',
     name: 'projName',
   },
   {
@@ -20,92 +20,95 @@ const questions = [
     name: 'description',
   },
   {
-    type:'checkbox',
-    message:'please enter some sections for your readme: ',
-    name: 'sections',
-    choices: [,"Tech Stack", "Features", "Table of contents", "Installation", "Usage","Future improvements","How to contribute","liscense"]
+    type:'input',
+    message:'please write a briefe entry on why you made this project',
+    name:'entry_why'
   },
   {
     type:'input',
-    message:'What is your Github URL',
-    name:'github'
-  }
+    message:'please enter some things related to this applications tech stack I.E. Technologies used, libraries, modules etc... please seperate entries with -',
+    name:'techstack'
+  },
+  {
+    type:'input',
+    message:'please add terms and conditions of usage here: ',
+    name:'usage'
+  },
+  {
+    type:'input',
+    message:'please describe installation and how to use your app here: ',
+    name:'installation'
+  },
+  {
+    type:'input',
+    message:'please describe how people could contribute to this project here: ',
+    name:'contribution'
+  },
+  {
+    type:'input',
+    message:'please describe plans for future improvements, updates, or additions here: ',
+    name:'futureImprovements'
+  },
+  {
+    type:'input',
+    message:'if you want to add any badges please do so here: ',
+    name:'badges'
+  },
+  {
+    type:'input',
+    message:'if you want to add any liscensing please do so here: ',
+    name:'liscensing'
+  },
 ]
 
 
-async function askTheQuestions(){
-  const results = await Promise.all(questions.map( question => {
-    const response = inquirer.prompt([question])
-    return response
-  }))
-
-  console.log(results)
-}
 
 
+    // function(re-callable), takes filename and R as response from inquirer, and puts new readme into the createdReadMes folder
+  function createfile(){
+    inquirer
+      .prompt(questions).then((R) => {
+        const newFileName = `${R.title.toLowerCase().split(' ').join('')}.md`;
+      
+    FileSystem.appendFile(`./createdReadMes/${newFileName}`,`
+#${R.projName}
 
+##Description
+-${R.description}
 
-// function doThings(){
-//   inquirer
-//   .prompt(questions).then(response => {
-//     let newFileName = `${response.title.toLowerCase().split(' ').join('')}`;
-//     var arrOfSectionsContent
-//     // response.sections.forEach(element => {
-//     //   // arrOfSectionsContent.push(`## ${element} \n `);
+##Why?
+-${R.entry_why}
 
-//     //   inquirer.prompt([{type:`input`,message:`add content to ${element} section`, name:`sections-${element}-content`}]).then(response => {
-//     //     arrOfSectionsContent.push(`## ${element} \n -${response}`)
-//     //   })
-//     // });
-//     promptsectionscontent(response);
+##TechStack
+-${R.techstack}
 
-//     createfile(newFileName, response, arrOfSectionsContent);
-//   })
-// };
+##Usage
+-${R.usage}
 
-// // maybe need async here
-// async function promptsectionscontent(response){
+##Installation
+-${R.installation}
 
-//   const arrOfSectionsContent = await Promise.all(
-//     response.sections.map(async element => {
-//     // arrOfSectionsContent.push(`## ${element} \n `);
-//       const getsectionscontent = [
-//         {type:`input`,
-//         message:`add content to ${element} section`, 
-//         name:`sections-${element}-content`
-//         }]
-//     return await inquirer.prompt(getsectionscontent)
-//   }))
-//   console.log(arrOfSectionsContent);
-// }; 
+##Contribute
+-${R.contribution}
 
-//     // function(re-callable), takes filename and R as response from inquirer, and puts new readme into the createdReadMes folder
-//   function createfile(newFileName, R, SectionsContent){
-//     FileSystem.appendFile(`./createdReadMes/${newFileName}.md`,`
-// # ${R.projName}
+##Future Improvements
+-${R.futureImprovements}
 
-// ## ${R.description}
+##Badges
+-${R.badges}
 
-// ## ${R.linkedin}
+##Liscence
+-${R.liscensing}
 
-// ## ${R.github}
-
-// ## Section Here
-
-
-
-
-// --sectionscontent splitting thing
-
-// ${SectionsContent} 
-//     `, 
-//       function (err) {
-//       if (err) console.log(err);
-//       console.log('Saved!');})
+ 
+    `, 
+      function (err) {
+      if (err) console.log(err);
+      console.log('Saved!');})
     
-//   }
-
-askTheQuestions();
+  }
+      )}
+createfile();
 
 
 
